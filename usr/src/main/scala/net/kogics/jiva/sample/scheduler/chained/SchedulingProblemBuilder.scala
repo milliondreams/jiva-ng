@@ -32,7 +32,7 @@ object SchedulingProblemBuilder {
 
   // build the problem with the given chromosome size .. max value for int alleles and the fitnessfunction
     
-  def buildProb(chrSize:int, maxGeneValue:int,jff:JFitnessFunction[jint],jff2:JFitnessFunction[jint]) : GaProblem[jint] = {
+  def buildProb(chrSize: Int, maxGeneValue: Int,jff:JFitnessFunction[jint],jff2:JFitnessFunction[jint]) : GaProblem[jint] = {
     
     val gaProbArr = new Array[GaProblem[jint]](2)
     
@@ -51,7 +51,7 @@ object SchedulingProblemBuilder {
     builder numEvolutions evolutions
     builder fitnessFunction ff
     
-    var popDelta = Math.ceil(popSize / 4.0).toInt
+    var popDelta = math.ceil(popSize / 4.0).toInt
     var selector:ParentSelector[jint] = new TournamentSelector[jint](popDelta, builder.rgen, 4)
     var replacer = new ApgaReplacer[jint]
     var evaluator = new ApgaFitnessEvaluator[jint](ff)
@@ -80,7 +80,7 @@ object SchedulingProblemBuilder {
     builder numEvolutions evolutions
     builder fitnessFunction ff
     
-    popDelta = Math.ceil(popSize / 4.0).toInt
+    popDelta = math.ceil(popSize / 4.0).toInt
     //selector = new TournamentSelector[jint](popDelta, builder.rgen, 10)
     selector = new RouletteWheelSelector[jint](popDelta, builder.rgen)
     replacer = new ApgaReplacer[jint]

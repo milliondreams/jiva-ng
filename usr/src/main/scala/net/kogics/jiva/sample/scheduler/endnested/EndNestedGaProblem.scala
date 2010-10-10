@@ -19,10 +19,10 @@ import net.kogics.jiva.population.{Population,Chromosome,Gene}
 import net.kogics.jiva.evolution.FitnessFunction
 import net.kogics.jiva.util.collection.JList
 
-import scala.collection.jcl.TreeSet
+import java.util.TreeSet
 
 
-abstract class EndNestedGaProblem[A](val mainGaProb:GaProblem[A],buildNestedProblem:(int,FitnessFunction[A]) => GaProblem[A],ff:FitnessFunction[A],nff:FitnessFunction[A],count:int,median:int)  extends GaProblem[A] {
+abstract class EndNestedGaProblem[A](val mainGaProb:GaProblem[A],buildNestedProblem:(Int,FitnessFunction[A]) => GaProblem[A],ff:FitnessFunction[A],nff:FitnessFunction[A],count:Int,median:Int)  extends GaProblem[A] {
 
   override def run() : Population[A] = {	
     //run the main GA problem to get the run
@@ -83,7 +83,7 @@ abstract class EndNestedGaProblem[A](val mainGaProb:GaProblem[A],buildNestedProb
   /*
    * 
    */
-  def fitnessFunctionWrapper(nff:FitnessFunction[A],chr:Chromosome[A],median:int) : NestedFitnessFunctionWrapper[A]
+  def fitnessFunctionWrapper(nff:FitnessFunction[A],chr:Chromosome[A],median:Int) : NestedFitnessFunctionWrapper[A]
   
   
     

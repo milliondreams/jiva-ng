@@ -99,7 +99,7 @@ public class Project {
 	 * @author vipul
 	 *
 	 */
-	public  final class Activity{
+	public final class Activity{
 		/**
 		 *  type of the activity
 		 */

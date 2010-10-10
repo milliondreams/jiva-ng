@@ -19,10 +19,10 @@ import net.kogics.jiva.gaprob.{ProbBuilder,GaProblem}
 import net.kogics.jiva.evolution.FitnessFunction
 import net.kogics.jiva.population.Chromosome
 
-class SchedulingEndNestedGaProblem(override val mainGaProb:GaProblem[jint], buildNestedProblem:(int,FitnessFunction[jint]) => GaProblem[jint] ,ff:FitnessFunction[jint],nff:FitnessFunction[jint],count:int,median:int)  
+class SchedulingEndNestedGaProblem(override val mainGaProb:GaProblem[jint], buildNestedProblem:(Int,FitnessFunction[jint]) => GaProblem[jint] ,ff:FitnessFunction[jint],nff:FitnessFunction[jint],count:Int,median:Int)
          extends EndNestedGaProblem[jint](mainGaProb,buildNestedProblem,ff,nff,count,median){
 
-     def fitnessFunctionWrapper(nff:FitnessFunction[jint],chr:Chromosome[jint],median:int) : NestedFitnessFunctionWrapper[jint] = {
+     def fitnessFunctionWrapper(nff:FitnessFunction[jint],chr:Chromosome[jint],median:Int) : NestedFitnessFunctionWrapper[jint] = {
       new SchedulingEndNestedFFW(nff,chr,median)
     }
 }

@@ -32,7 +32,7 @@ object SchedulingProblemBuilder {
 
   // build the problem with the given chromosome size .. max value for int alleles and the fitnessfunction
     
-  def buildProb(chrSize:int, maxGeneValue:int,jff:JFitnessFunction[jint],njff:JFitnessFunction[jint]) : GaProblem[jint] = {
+  def buildProb(chrSize:Int, maxGeneValue:Int,jff:JFitnessFunction[jint],njff:JFitnessFunction[jint]) : GaProblem[jint] = {
     
 
     
@@ -51,7 +51,7 @@ object SchedulingProblemBuilder {
     builder numEvolutions evolutions
     builder fitnessFunction ff
     
-    var popDelta = Math.ceil(popSize / 4.0).toInt
+    var popDelta = math.ceil(popSize / 4.0).toInt
     var selector:ParentSelector[jint] = new TournamentSelector[jint](popDelta, builder.rgen, 4)
     var replacer = new ApgaReplacer[jint]
     var evaluator = new ApgaFitnessEvaluator[jint](ff)
@@ -79,12 +79,12 @@ object SchedulingProblemBuilder {
 
   }
 
-  private def buildNestedProbWrapper(maxGeneValue:int) : ((int,FitnessFunction[jint]) => GaProblem[jint]) = {
+  private def buildNestedProbWrapper(maxGeneValue:Int) : ((Int,FitnessFunction[jint]) => GaProblem[jint]) = {
     //doing all this for two reasons
     // i) i need maxGeneValue here ... and i needed maxGeneValue there too (while creating SchedulingEndNestedGaProblem ...
     // ii) i wanted to return a closure from a function .... just for the heck of it
        
-     (chrSize:int,nff:FitnessFunction[jint]) => {
+     (chrSize:Int,nff:FitnessFunction[jint]) => {
 	
  	    print(" buildingNestedProblem for chrSize"+chrSize+" : maxGeneValue - "+maxGeneValue)
 	    val probBuilder = JProbBuilder.integerProbBuilder
@@ -97,7 +97,7 @@ object SchedulingProblemBuilder {
 	    probBuilder numEvolutions evolutions
 	    probBuilder fitnessFunction nff
 	
-	    val popDelta = Math.ceil(popSize / 4.0).toInt
+	    val popDelta = math.ceil(popSize / 4.0).toInt
 	
 	    val selector = new TournamentSelector[jint](popDelta, probBuilder.rgen, 4)/*new RouletteWheelSelector[jint](popDelta, probBuilder.rgen)*/
 	    val replacer = new ApgaReplacer[jint]

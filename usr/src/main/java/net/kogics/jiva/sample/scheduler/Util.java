@@ -17,8 +17,6 @@ package net.kogics.jiva.sample.scheduler;
 import java.util.List;
 import java.util.StringTokenizer;
 
-import net.kogics.jiva.sample.scheduler.Project.Activity;
-
 /**
  * Utility class
  * 
@@ -36,8 +34,8 @@ public class Util {
 		StringTokenizer st = new StringTokenizer(commaSeperatedDelays,",");
 		
 		for(Project project : projects){
-			List<Activity> activities = project.getActivities();
-			for(Activity activity : activities){
+			List<Project.Activity> activities = project.getActivities();
+			for(Project.Activity activity : activities){
 				String delayStr = st.nextToken();
 				int delay = Integer.parseInt(delayStr);
 				activity.setDelay(delay);
@@ -55,8 +53,8 @@ public class Util {
 	public static void resetSchedule(List<Project> projects){
 
 		for(Project project : projects){
-			List<Activity> activities = project.getActivities();
-			for(Activity activity : activities){
+			List<Project.Activity> activities = project.getActivities();
+			for(Project.Activity activity : activities){
 				activity.setDelay(0);
 				activity.setConflicted(false);
 			}

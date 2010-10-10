@@ -31,7 +31,7 @@ object SchedulingProblemBuilder {
 
   // build the problem with the given chromosome size .. max value for int alleles and the fitnessfunction
     
-  def buildProb(chrSize:int, maxGeneValue:int,jff:JFitnessFunction[jint]) : GaProblem[jint] = {
+  def buildProb(chrSize:Int, maxGeneValue:Int,jff:JFitnessFunction[jint]) : GaProblem[jint] = {
     println(" Invoking plain ProblemBuilder")
     val builder:IntegerProbBuilder = JProbBuilder.integerProbBuilder
     val popSize = 400
@@ -45,7 +45,7 @@ object SchedulingProblemBuilder {
     builder numEvolutions evolutions
     builder fitnessFunction ff
     
-    val popDelta = Math.ceil(popSize / 4.0).toInt
+    val popDelta = math.ceil(popSize / 4.0).toInt
     val selector = new TournamentSelector[jint](popDelta, builder.rgen, 4)
     val replacer = new GenerationalReplacer[jint]
     val evaluator = new SgaFitnessEvaluator[jint](ff)

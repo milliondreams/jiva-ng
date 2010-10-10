@@ -11,7 +11,8 @@
  * implied. See the License for the specific language governing
  * rights and limitations under the License.
  *
- */package net.kogics.jiva.sample.scheduler;
+ */
+package net.kogics.jiva.sample.scheduler;
 
 import java.io.BufferedReader;
 import java.io.FileInputStream;
@@ -20,9 +21,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.StringTokenizer;
 import java.util.concurrent.atomic.AtomicBoolean;
-
-import net.kogics.jiva.sample.scheduler.Project.Activity;
-
 
 /**
  * @author vipul
@@ -68,7 +66,7 @@ public class SchedulingProblem {
 		
 		Project project1 = new Project();
 		project1.setName("BugTrackingSystem");
-		List<Activity> activities = new ArrayList<Activity>();
+		List<Project.Activity> activities = new ArrayList<Project.Activity>();
 		activities.add(project1.new Activity(ActivityType.REQUIREMENTS_GATHERING,2));
 		activities.add(project1.new Activity(ActivityType.ARCHITECTURE_DESIGN,5));
 		activities.add(project1.new Activity(ActivityType.PROOF_OF_CONCEPT,10));
@@ -83,7 +81,7 @@ public class SchedulingProblem {
 		
 		Project project2 = new Project();
 		project2.setName("HRPortal");
-		activities = new ArrayList<Activity>();
+		activities = new ArrayList<Project.Activity>();
 		activities.add(project2.new Activity(ActivityType.REQUIREMENTS_GATHERING,2));
 		activities.add(project2.new Activity(ActivityType.ARCHITECTURE_DESIGN,4));
 		activities.add(project2.new Activity(ActivityType.PROOF_OF_CONCEPT,20));
@@ -99,7 +97,7 @@ public class SchedulingProblem {
 		
 		Project project3 = new Project();
 		project3.setName("PointOfSales");
-		activities = new ArrayList<Activity>();
+		activities = new ArrayList<Project.Activity>();
 		activities.add(project3.new Activity(ActivityType.REQUIREMENTS_GATHERING,3));
 		activities.add(project3.new Activity(ActivityType.ARCHITECTURE_DESIGN,4));
 		activities.add(project3.new Activity(ActivityType.PROOF_OF_CONCEPT,16));
@@ -114,7 +112,7 @@ public class SchedulingProblem {
 		
 		Project project4 = new Project();
 		project4.setName("MusicStore");
-		activities = new ArrayList<Activity>();
+		activities = new ArrayList<Project.Activity>();
 		activities.add(project4.new Activity(ActivityType.REQUIREMENTS_GATHERING,3));
 		activities.add(project4.new Activity(ActivityType.ARCHITECTURE_DESIGN,4));
 		activities.add(project4.new Activity(ActivityType.PROOF_OF_CONCEPT,12));
@@ -128,7 +126,7 @@ public class SchedulingProblem {
 		
 		Project project5 = new Project();
 		project5.setName("BusinessActivityMonitoringSystem");
-		activities = new ArrayList<Activity>();
+		activities = new ArrayList<Project.Activity>();
 		activities.add(project5.new Activity(ActivityType.REQUIREMENTS_GATHERING,2));
 		activities.add(project5.new Activity(ActivityType.ARCHITECTURE_DESIGN,4));
 		activities.add(project5.new Activity(ActivityType.PROOF_OF_CONCEPT,20));
@@ -144,7 +142,7 @@ public class SchedulingProblem {
 		
 		Project project6 = new Project();
 		project6.setName("ReportingTool");
-		activities = new ArrayList<Activity>();
+		activities = new ArrayList<Project.Activity>();
 		activities.add(project6.new Activity(ActivityType.REQUIREMENTS_GATHERING,3));
 		activities.add(project6.new Activity(ActivityType.ARCHITECTURE_DESIGN,4));
 		activities.add(project6.new Activity(ActivityType.PROOF_OF_CONCEPT,16));
@@ -247,7 +245,7 @@ HRPortal,105
 		while(line != null){
 			boolean readNameDuration = false;
 			Project project = new Project();
-			List<Activity>  activities = new ArrayList<Activity>();
+			List<Project.Activity>  activities = new ArrayList<Project.Activity>();
 			while(line != null && !line.equalsIgnoreCase("")){
 
 				StringTokenizer projectString = new StringTokenizer(line.trim(),",");

@@ -17,9 +17,9 @@ package net.kogics.jiva.sample.scheduler.varparam
 import net.kogics.jiva.operators.DynamicVariationProb
 import net.kogics.jiva.population.Population
 
-class GenVarMutationProb[A](initProb:Double,numGenerations:int) extends DynamicVariationProb[A]{
+class GenVarMutationProb[A](initProb:Double,numGenerations: Int) extends DynamicVariationProb[A]{
   
-  var popNumber:int = 0
+  var popNumber:Int = 0
   var probability = initProb
   
   

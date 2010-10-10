@@ -22,9 +22,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.TreeMap;
 
-import net.kogics.jiva.sample.scheduler.Project.Activity;
-
-
 /**
  * @author vipul
  *
@@ -41,7 +38,7 @@ public class TimeSeries {
 	/**
 	 * 
 	 */
-	Map<Integer,Map<MODE,List<Activity>>> map = null;
+	Map<Integer,Map<MODE,List<Project.Activity>>> map = null;
 	
 	/**
 	 * 
@@ -84,7 +81,7 @@ public class TimeSeries {
 	 */
 	public TimeSeries(ResourcePool resourcePool, List<Project> projects, Integer[] delayList) {
 		this.resourcePool = resourcePool;
-		map = new TreeMap<Integer,Map<MODE,List<Activity>>>();
+		map = new TreeMap<Integer,Map<MODE,List<Project.Activity>>>();
 		this.projects = projects;
 		this.delayList = delayList;
 		
@@ -95,7 +92,7 @@ public class TimeSeries {
 	 * @param time
 	 * @param activity
 	 */
-	private void addStartingActivity(Integer time, Activity activity) {
+	private void addStartingActivity(Integer time, Project.Activity activity) {
 		numActivities++;
 		MODE mode = MODE.BEGIN;
 		addActivity(time, activity, mode);
@@ -105,7 +102,7 @@ public class TimeSeries {
 	 * @param time
 	 * @param activity
 	 */
-	private void addEndingActivity(Integer time, Activity activity) {
+	private void addEndingActivity(Integer time, Project.Activity activity) {
 		MODE mode = MODE.END;
 		addActivity(time, activity, mode);
 	}
@@ -115,16 +112,16 @@ public class TimeSeries {
 	 * @param activity
 	 * @param mode
 	 */
-	private void addActivity(Integer time, Activity activity, MODE mode) {
-		Map<MODE,List<Activity>> timeMap = map.get(time);
+	private void addActivity(Integer time, Project.Activity activity, MODE mode) {
+		Map<MODE,List<Project.Activity>> timeMap = map.get(time);
 		if(timeMap == null) {
-			timeMap = new HashMap<MODE,List<Activity>>();
+			timeMap = new HashMap<MODE,List<Project.Activity>>();
 			map.put(time, timeMap);
 		}
 		
-		List<Activity> activities = timeMap.get(mode);
+		List<Project.Activity> activities = timeMap.get(mode);
 		if(activities == null) {
-			activities = new ArrayList<Activity>();
+			activities = new ArrayList<Project.Activity>();
 			timeMap.put(mode, activities);
 		}
 		activities.add(activity);
@@ -141,14 +138,14 @@ public class TimeSeries {
 		//populate the time Series for all the projects
 		for(Project project :projects) {
 			//get all the activities for this project 
-			List<Activity> activities= project.getActivities();
+			List<Project.Activity> activities= project.getActivities();
 			int projectActivityCount = activities.size();
 
 			int beginTime = 0;
 			int endTime = 0;//set the end time of last (phantom) activity to 0
 			//loop through all the activities in the project and figure out their begin and end time
 			for(int i = 0; i< projectActivityCount ;i++) {
-				Activity activity = activities.get(i);
+				Project.Activity activity = activities.get(i);
 				//add the delay value to the end time of last activity to calculate the begin time of this activity. 
 				beginTime = endTime+delayList[iArrayIndex+i];
 				// set the delay
@@ -193,11 +190,11 @@ public class TimeSeries {
 
 		for(Integer time : timeValues){
 			//System.out.println(" TIME : "+time);
-			Map<MODE,List<Activity>> timeMap = map.get(time);
+			Map<MODE,List<Project.Activity>> timeMap = map.get(time);
 			
-			List<Activity> endingActivities = timeMap.get(MODE.END);
+			List<Project.Activity> endingActivities = timeMap.get(MODE.END);
 			if(endingActivities != null) {
-				for(Activity activity : endingActivities) {
+				for(Project.Activity activity : endingActivities) {
 					ActivityType type = activity.getType();
 					//System.out.print("<< "+activity.getProject().getName()+" ");
 					resourcePool.checkinResource(type);
@@ -205,9 +202,9 @@ public class TimeSeries {
 				}
 			}
 
-			List<Activity> beginingActivities = timeMap.get(MODE.BEGIN);
+			List<Project.Activity> beginingActivities = timeMap.get(MODE.BEGIN);
 			if(beginingActivities  != null) {
-				for(Activity activity : beginingActivities ) {
+				for(Project.Activity activity : beginingActivities ) {
 					ActivityType type = activity.getType();
 					
 				//	System.out.print(">> "+activity.getProject().getName()+" ");
@@ -234,21 +231,21 @@ public class TimeSeries {
 		Iterator<Integer> i = timeValues.iterator();
 		while(i.hasNext()) {
 			Integer timeValue = i.next();
-			Map<MODE,List<Activity>> modes = map.get(timeValue);
+			Map<MODE,List<Project.Activity>> modes = map.get(timeValue);
 			sb.append("\n").append("Time : ").append(timeValue);
 			
-			List<Activity> eActivities= modes.get(MODE.END);
+			List<Project.Activity> eActivities= modes.get(MODE.END);
 			if(eActivities != null && eActivities.size() > 0) {
 				sb.append("\n\t").append("Ending Activities: ");
-				for(Activity activity : eActivities) {
+				for(Project.Activity activity : eActivities) {
 					sb.append("\n\t\t").append(activity.toString());
 				}
 			}
 			
-			List<Activity> bActivities= modes.get(MODE.BEGIN);
+			List<Project.Activity> bActivities= modes.get(MODE.BEGIN);
 			if(bActivities != null && bActivities.size() > 0) {
 				sb.append("\n\t").append("Begining Activities: ");
-				for(Activity activity : bActivities) {
+				for(Project.Activity activity : bActivities) {
 					sb.append("\n\t\t").append(activity.toString());
 				}
 			}
@@ -278,7 +275,7 @@ public class TimeSeries {
 			String status = earlyDelayed + " by "+by;
 			
 			System.out.print("\n"+project.getName()+"("+project.getLatestEndTime()+") - totalTime "+totalTime+" "+status+"\n\t\t|");
-			for(Activity activity : project.getActivities()){
+			for(Project.Activity activity : project.getActivities()){
 				for(int i = 0 ; i < activity.getDelay(); i++)
 					System.out.print("-");
 				if(activity.isConflicted())
