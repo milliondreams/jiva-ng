@@ -1,0 +1,12 @@
+<ivysettings>
+	<settings defaultResolver="chained" />
+	<resolvers>
+		<chain name="chained">
+			<ibiblio name="ibiblio" m2compatible="true" />
+			<url name="scala" m2compatible="true">
+				<artifact
+					pattern="http://scala-tools.org/repo-releases/[organization]/[artifact]/[revision]/[artifact]-[revision].[ext]" />
+			</url>
+		</chain>
+	</resolvers>
+</ivysettings>

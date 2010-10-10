@@ -1,0 +1,71 @@
+<project name="jiva-usr" default="compile-s" basedir=".">
+
+	<property name="scala.version" value="2.7.3"/>
+	<property name="scala.home" value="." />
+	<property name="scala-compiler.jar" value="${scala.home}/lib/scala-compiler-${scala.version}.jar" />
+	<property name="scala-library.jar" value="${scala.home}/lib/scala-library-${scala.version}.jar" />
+
+	<property name="jiva.jar" location="target/jiva.jar" />
+	<property name="build.classes" location="work" />
+	<property name="work" location="work" />
+	<property name="test.lib" location="lib" />
+	<property name="src.main.java" location="usr/src/main/java" />
+	<property name="src.test.java" location="usr/src/test/java" />
+	<property name="src.main.scala" location="usr/src/main/scala" />
+	<property name="src.test.scala" location="usr/src/test/scala" />
+
+	<path id="classpath">
+		<pathelement location="${jiva.jar}"/>
+		<pathelement location="${build.classes}" />
+	</path>
+
+	<path id="test.classpath">
+		<path refid="classpath"/>
+		<fileset dir="${test.lib}">
+			<include name="**/*.jar" />
+		</fileset>
+	</path>
+
+	<path id="scala.classpath">
+		<pathelement location="${scala-compiler.jar}" />
+		<pathelement location="${scala-library.jar}" />
+	</path>
+
+	<taskdef resource="scala/tools/ant/antlib.xml">
+		<classpath refid="scala.classpath" />
+	</taskdef>
+
+	<target name="clean" description="clean up">
+		<delete dir="${build.classes}" />
+	</target>
+
+	<target name="init">
+		<available file="${jiva.jar}" property="jiva.build.done" />
+		<fail message="Please build Jiva by running ant before trying to do a usrBuild" unless="jiva.build.done" />
+
+		<mkdir dir="${build.classes}" />
+		<mkdir dir="${work}" />
+	</target>
+
+	<target name="compile-j" depends="init" description="Compiles all Jiva's Java code">
+		<javac srcdir="${src.main.java}" destdir="${build.classes}" classpathref="classpath" />
+		<javac srcdir="${src.test.java}" destdir="${build.classes}" classpathref="test.classpath" />
+	</target>
+
+	<target name="compile-s" depends="compile-j" description="Compiles all Jiva's Scala code">
+		<scalac srcdir="${src.main.scala}" destdir="${build.classes}" force="changed" addparams="">
+			<classpath>
+				<path refid="scala.classpath" />
+				<path refid="classpath" />
+			</classpath>
+			<include name="**/*.scala" />
+		</scalac>
+		<scalac srcdir="${src.test.scala}" destdir="${build.classes}" force="changed" addparams="">
+			<classpath>
+				<path refid="scala.classpath" />
+				<path refid="test.classpath" />
+			</classpath>
+			<include name="**/*.scala" />
+		</scalac>
+	</target>
+</project>

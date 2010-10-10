@@ -1,0 +1,38 @@
+/*
+ * Copyright (C) 2007 Lalit Pant <pant.lalit@gmail.com>
+ *
+ * The contents of this file are subject to the GNU General Public License 
+ * Version 3 (the "License"); you may not use this file
+ * except in compliance with the License. You may obtain a copy of
+ * the License at http://www.gnu.org/copyleft/gpl.html
+ *
+ * Software distributed under the License is distributed on an "AS
+ * IS" basis, WITHOUT WARRANTY OF ANY KIND, either express or
+ * implied. See the License for the specific language governing
+ * rights and limitations under the License.
+ *
+ */
+
+package net.kogics.jiva.operators
+import net.kogics.jiva.population.{Population, Chromosome}
+
+/**
+ * Mutation Op that supports a deterministically changing mutation probability
+*/
+class DetXingMutationOp[A](vp: DynamicVariationProb[A], realOp: MutationOp[A]) extends MutationOp[A] {
+
+  def operate(pop: Population[A]) : Population[A] = {
+    vp.beginGen(pop)
+    realOp.operate(vp(), pop)
+  }
+
+  protected [operators] def operate(pm: Double, pop: Population[A]) : Population[A] = {
+    throw new UnsupportedOperationException("DynaProbMutationWrapper not meant to be wrapped")
+  }
+  
+  def variationProb = vp()
+  
+  protected [operators] def mutate(pm: Double, chr: Chromosome[A]): Chromosome[A] = { 
+    throw new UnsupportedOperationException("DynaProbMutationWrapper not meant to be wrapped")
+  } 
+}
