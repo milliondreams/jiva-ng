@@ -31,3 +31,4 @@ nsis
 ^nbproject/private/
 genfiles.properties
 testreport.txt
+^work/
