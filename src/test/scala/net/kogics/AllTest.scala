@@ -1,6 +1,6 @@
 package net.kogics
 
-object AllTests {
+object AllTest {
 
   def suite : junit.framework.Test = {
     val suite = new junit.framework.TestSuite    

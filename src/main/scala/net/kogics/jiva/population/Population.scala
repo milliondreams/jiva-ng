@@ -19,7 +19,8 @@ import net.kogics.jiva.Predef._
 import net.kogics.jiva.evolution.FitnessEvaluator
 import net.kogics.jiva.util.collection.JList
 
-import scala.collection.jcl.TreeSet
+import java.util.TreeSet
+import scala.collection.JavaConversions._
 
 
 object Population {
@@ -35,7 +36,7 @@ object Population {
 class Population[A](final val members: Seq[Chromosome[A]]) extends JPopulation[A] {
   def length = members.length
   def size = members.size
-  def elements = members.elements
+  def elements = members.iterator
   private var fittestChr:Option[Chromosome[A]] = None
   
   def apply(n: Int) = members(n)
@@ -74,8 +75,10 @@ class Population[A](final val members: Seq[Chromosome[A]]) extends JPopulation[A
     JList(set.toList.reverse.take(num))
   }
   
-  override def equals(other: Any) : Boolean = {
-    return members.sameElements(other.asInstanceOf[Population[A]].members)
+  override def equals(other: Any) : Boolean = other match {
+    case null => false
+    case otherP: Population[A] => members.sameElements(otherP.members)
+    case _ => false
   }
   
   override def hashCode = throw new UnsupportedOperationException

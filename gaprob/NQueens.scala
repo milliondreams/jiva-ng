@@ -42,7 +42,7 @@ class NqFitness(numq: Int) extends FitnessFunction[jint] {
     var idx = 1
     var conflicts = 0
     tl.foreach {pos2 => 
-      if (Math.abs(pos2 - pos1) == idx) conflicts += 1
+      if (math.abs(pos2 - pos1) == idx) conflicts += 1
       idx += 1
     }	
     conflicts

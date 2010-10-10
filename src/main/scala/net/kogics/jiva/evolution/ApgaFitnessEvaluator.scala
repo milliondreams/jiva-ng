@@ -55,13 +55,12 @@ class ApgaFitnessEvaluator[A](ff: FitnessFunction[A]) extends FitnessEvaluator[A
     offspring.foreach { chr =>
       var lt = 0L
       if (avgFit >= chr.fitness.get) {
-        lt = MIN_LT + Math.round(eta * (chr.fitness.get - minFit)/(avgFit - minFit))
+        lt = MIN_LT + math.round(eta * (chr.fitness.get - minFit)/(avgFit - minFit))
       }
       else {
-        lt = (MIN_LT + MAX_LT)/2 + Math.round(eta * (chr.fitness.get - avgFit)/(maxFit - avgFit))
+        lt = (MIN_LT + MAX_LT)/2 + math.round(eta * (chr.fitness.get - avgFit)/(maxFit - avgFit))
       }
-      chr.props + ("lifetime" -> lt)
+      chr.props += ("lifetime" -> lt)
     }
   }
-  
 }

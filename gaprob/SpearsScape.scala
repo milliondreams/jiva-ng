@@ -11,7 +11,7 @@ class SpearsScape extends jiva.ProbDefiner {
     buildr numEvolutions 200
     buildr fitnessFunction new SpearsFitness(buildr)
 
-    val popDelta = Math.ceil(100 / 4.0).toInt
+    val popDelta = math.ceil(100 / 4.0).toInt
     val selector = new TournamentSelector[jbool](popDelta, buildr.rgen, 4)
     val replacer = new ApgaReplacer[jbool]
     val evaluator = new ApgaFitnessEvaluator[jbool](buildr().ff)

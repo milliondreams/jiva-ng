@@ -8,10 +8,10 @@ import junit.framework._
 import junit.framework.Assert._
 import org.jmock.Mockery
 import org.jmock.lib.legacy.ClassImposteriser
+import org.jmock.Expectations
 import org.jmock.Expectations._
-import net.kogics.jiva.util.mock.SExpectations
 
-class TestRouletteWheelSelector extends TestCase with TestUtils {
+class TestRouletteWheelSelector extends TestCase with net.kogics.jiva.TestUtils {
   val context = new Mockery() {
     {
       setImposteriser(ClassImposteriser.INSTANCE)
@@ -47,11 +47,11 @@ class TestRouletteWheelSelector extends TestCase with TestUtils {
     
     val rg = (context.mock(classOf[Random])).asInstanceOf[Random]
     context.checking(
-	  new SExpectations() {{
-	    atLeast(1).of(rg).nextDouble	
-        will(onConsecutiveCalls(returnConsecutiveValues(probs): _*))
-	  }	
-	})
+      new Expectations() {{
+          atLeast(1).of(rg).nextDouble
+          will(onConsecutiveCalls(returnConsecutiveValues(probs): _*))
+        }
+      })
  
     val selector = new RouletteWheelSelector[jbool](pop.size, rg)
     val pop2 = selector.select(pop)
@@ -67,7 +67,7 @@ class TestRouletteWheelSelector extends TestCase with TestUtils {
       fail("Invalid Selection Size should not be allowed")
     }
     catch {
-    case e: IllegalArgumentException => assertTrue(true)
+      case e: IllegalArgumentException => assertTrue(true)
     }
   }
   

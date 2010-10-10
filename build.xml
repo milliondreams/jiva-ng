@@ -1,5 +1,5 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="jiva" default="jar" basedir=".">
-	<property name="scala.version" value="2.7.3"/>
+	<property name="scala.version" value="2.8.0"/>
 	<property name="scala.home" value="." />
 	<property name="scala-compiler.jar" value="${scala.home}/lib/scala-compiler-${scala.version}.jar" />
 	<property name="scala-library.jar" value="${scala.home}/lib/scala-library-${scala.version}.jar" />
@@ -79,7 +79,7 @@
 	<target name="test" depends="compile-s">
 		<junit printsummary="yes" showoutput="yes">
 			<formatter type="plain" />
-			<test name="net.kogics.AllTests" fork="yes" haltonfailure="yes" outfile="testreport" />
+			<test name="net.kogics.AllTest" fork="yes" haltonfailure="yes" outfile="testreport" />
 			<classpath>
 				<path refid="scala.classpath" />
 				<path refid="test.classpath" />

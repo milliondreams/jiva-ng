@@ -45,7 +45,7 @@ extends AbstractCrossoverOp[A](pc, rgen) {
       }
     }
 
-    val csites = indices.sort((x,y) => y>x)
+    val csites = indices.sortWith((x,y) => y>x)
 
     return crossover(chr1,chr2,csites)
   }

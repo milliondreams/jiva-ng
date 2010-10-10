@@ -127,7 +127,7 @@ class BooleanProbBuilder private [gaprob] extends ProbBuilder[jbool] {
   }
   
   def defaultEvolver(pm: Double, pc: Double) = {
-    val popDelta = Math.ceil(problem.popSize / 4.0).toInt
+    val popDelta = math.ceil(problem.popSize / 4.0).toInt
     val selector = new TournamentSelector[jbool](popDelta, Randomizer().rgen, 4)
     val replacer = new ApgaReplacer[jbool]
     val evaluator = new ApgaFitnessEvaluator[jbool](problem.fitnessFunction)
@@ -154,7 +154,7 @@ class IntegerProbBuilder private [gaprob] extends ProbBuilder[jint] {
   }
   
   def defaultEvolver(pm: Double, pc: Double) = {
-    val popDelta = Math.ceil(problem.popSize / 4.0).toInt
+    val popDelta = math.ceil(problem.popSize / 4.0).toInt
     val selector = new TournamentSelector[jint](popDelta, Randomizer().rgen, 4)
     val replacer = new ApgaReplacer[jint]
     val evaluator = new ApgaFitnessEvaluator(problem.fitnessFunction)
@@ -182,7 +182,7 @@ class PermutedProbBuilder private [gaprob] extends ProbBuilder[jint] {
   }
   
   def defaultEvolver(pm: Double, pc: Double) = {
-    val popDelta = Math.ceil(problem.popSize / 4.0).toInt
+    val popDelta = math.ceil(problem.popSize / 4.0).toInt
     val selector = new TournamentSelector[jint](popDelta, Randomizer().rgen, 4)
     val replacer = new ApgaReplacer[jint]
     val evaluator = new ApgaFitnessEvaluator(problem.fitnessFunction)
@@ -210,7 +210,7 @@ class Pair_II_ProbBuilder private [gaprob] extends ProbBuilder[Gene.Pair[jint, j
   }
   
   def defaultEvolver(pm: Double, pc: Double) = {
-    val popDelta = Math.ceil(problem.popSize / 4.0).toInt
+    val popDelta = math.ceil(problem.popSize / 4.0).toInt
     val selector = new TournamentSelector[Gene.Pair[jint, jint]](popDelta, Randomizer().rgen, 4)
     val replacer = new ApgaReplacer[Gene.Pair[jint, jint]]
     val evaluator = new ApgaFitnessEvaluator[Gene.Pair[jint, jint]](problem.fitnessFunction)

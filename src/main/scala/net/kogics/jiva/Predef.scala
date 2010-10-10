@@ -13,16 +13,16 @@ object Predef {
     // Borrowed from Console
     val res = new Array[AnyRef](s.length)
     var i: Int = 0
-    val iter = s.elements
+    val iter = s.iterator
     while (iter.hasNext) {
       res(i) = iter.next match {
         case x: Boolean => new java.lang.Boolean(x)
-        case x: byte    => new java.lang.Byte(x)
-        case x: short   => new java.lang.Short(x)
-        case x: char    => new java.lang.Character(x)
-        case x: int => new java.lang.Integer(x)
-        case x: long    => new java.lang.Long(x)
-        case x: float   => new java.lang.Float(x)
+        case x: Byte    => new java.lang.Byte(x)
+        case x: Short   => new java.lang.Short(x)
+        case x: Char    => new java.lang.Character(x)
+        case x: Int => new java.lang.Integer(x)
+        case x: Long    => new java.lang.Long(x)
+        case x: Float   => new java.lang.Float(x)
         case x: Double  => new java.lang.Double(x)
         case x: Unit    => "()"
         case x: AnyRef  => x

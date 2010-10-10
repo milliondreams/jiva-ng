@@ -21,14 +21,14 @@ import junit.framework.TestCase
 import junit.framework.Assert._
 import org.jmock.Mockery
 import org.jmock.lib.legacy.ClassImposteriser
+import org.jmock.Expectations
 import org.jmock.Expectations._
-import net.kogics.jiva.util.mock.SExpectations
 
 import net.kogics.jiva.Predef._
 import net.kogics.jiva.population.{Population, Chromosome}
 import net.kogics.jiva.util.NoOpShuffler
 
-class TestRandomResetMutationOp extends TestCase with TestUtils with ProbabilityChecker[jbool] {
+class TestRandomResetMutationOp extends TestCase with net.kogics.jiva.TestUtils with ProbabilityChecker[jbool] {
  
   val context = new Mockery() {
     {
@@ -44,7 +44,7 @@ class TestRandomResetMutationOp extends TestCase with TestUtils with Probability
     
     val rg = (context.mock(classOf[Random])).asInstanceOf[Random]
     context.checking(
-      new SExpectations() {{		
+      new Expectations() {{		
 	    atLeast(1).of(rg).nextDouble()
      will(onConsecutiveCalls(returnConsecutiveValues(List(0.4, 0.4, 0.01,
                                                             0.4, 0.4, 0.001, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
@@ -66,7 +66,7 @@ class TestRandomResetMutationOp extends TestCase with TestUtils with Probability
       
     val rg = (context.mock(classOf[Random])).asInstanceOf[Random]
     context.checking(
-      new SExpectations() {{		
+      new Expectations() {{		
 	    atLeast(1).of(rg).nextDouble()
      will(onConsecutiveCalls(returnConsecutiveValues(List(0.4, 0.4, 0.01,
                                                             0.4, 0.4, 0.001, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,
@@ -88,7 +88,7 @@ class TestRandomResetMutationOp extends TestCase with TestUtils with Probability
       
     val rg = (context.mock(classOf[Random])).asInstanceOf[Random]
     context.checking(
-      new SExpectations() {{		
+      new Expectations() {{		
 	    atLeast(1).of(rg).nextDouble()
      will(onConsecutiveCalls(returnConsecutiveValues(List(0.4, 0.4, 0.01,
                                                             0.4, 0.4, 0.001, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4, 0.4,

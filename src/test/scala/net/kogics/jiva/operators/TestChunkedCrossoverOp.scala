@@ -20,14 +20,14 @@ import scala.util.Random
 import junit.framework.TestCase
 import org.jmock.Mockery
 import org.jmock.lib.legacy.ClassImposteriser
+import org.jmock.Expectations
 import org.jmock.Expectations._
-import net.kogics.jiva.util.mock.SExpectations
 
 import net.kogics.jiva.Predef._
 import net.kogics.jiva.population.{Population, Chromosome}
 import net.kogics.jiva.util.NoOpShuffler
 
-class TestChunkedCrossoverOp extends TestCase with TestUtils with ProbabilityChecker[jbool] {
+class TestChunkedCrossoverOp extends TestCase with net.kogics.jiva.TestUtils with ProbabilityChecker[jbool] {
  
   val context: Mockery = new Mockery() {
     {
@@ -42,7 +42,7 @@ class TestChunkedCrossoverOp extends TestCase with TestUtils with ProbabilityChe
     val rg = (context.mock(classOf[Random])).asInstanceOf[Random]
     
     context.checking(
-	  new SExpectations() {
+	  new Expectations() {
 	    {	
 	      atLeast(1).of(rg).nextDouble()	
        will(onConsecutiveCalls(returnConsecutiveValues(List(0.31, 0.66,
@@ -67,7 +67,7 @@ class TestChunkedCrossoverOp extends TestCase with TestUtils with ProbabilityChe
 
     val rg = (context.mock(classOf[Random])).asInstanceOf[Random]
 
-    context.checking(new SExpectations() {
+    context.checking(new Expectations() {
       {
         // pc calls
         atLeast(1).of(rg).nextDouble()
@@ -81,7 +81,7 @@ class TestChunkedCrossoverOp extends TestCase with TestUtils with ProbabilityChe
         // which one to add to odd
         // crossover site
         // crossover site
-	    atLeast(1).of(rg).nextInt(withArg(any(classOf[jint])))
+	    atLeast(1).of(rg).nextInt(`with`(any(classOf[jint])))
         will(onConsecutiveCalls(returnConsecutiveValues(List(0, 0, 2)): _*))
        }
      })
@@ -100,7 +100,7 @@ class TestChunkedCrossoverOp extends TestCase with TestUtils with ProbabilityChe
 
     val rg = (context.mock(classOf[Random])).asInstanceOf[Random]
 
-    context.checking(new SExpectations() {
+    context.checking(new Expectations() {
       {
         // pc calls
         atLeast(1).of(rg).nextDouble()
@@ -113,7 +113,7 @@ class TestChunkedCrossoverOp extends TestCase with TestUtils with ProbabilityChe
         // calls:
         // which one to remove from odd
         // crossover site
-        atLeast(1).of(rg).nextInt(withArg(any(classOf[jint])))
+        atLeast(1).of(rg).nextInt(`with`(any(classOf[jint])))
         will(onConsecutiveCalls(returnConsecutiveValues(List(1, 4)): _*))
        }
      })

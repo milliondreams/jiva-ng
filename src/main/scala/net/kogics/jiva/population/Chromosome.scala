@@ -28,14 +28,14 @@ object Chromosome {
   
   /**
    * Create a Chromosome out of suppled String of 0s and 1s  
-  */
+   */
   def apply(genes: String) : Chromosome[jbool] = {
     val g = new JList[Gene[jbool]]
     genes.foreach { allele =>
       allele match {
-      case '0' => g + Gene(false)
-      case '1' => g + Gene(true)
-      case _ => throw new IllegalArgumentException("Only 0s and 1s allowed in gene string")
+        case '0' => g + Gene(false)
+        case '1' => g + Gene(true)
+        case _ => throw new IllegalArgumentException("Only 0s and 1s allowed in gene string")
       }
     }
     return new Chromosome(g)
@@ -43,7 +43,7 @@ object Chromosome {
   
   /**
    * Create a Chromosome out of suppled String of [0-9]s  
-  */
+   */
   def apply(genes: String, max: Int) : Chromosome[jint] = {
     val g = new JList[Gene[jint]]
     genes.foreach { allele => 
@@ -59,16 +59,18 @@ object Chromosome {
  */
 class Chromosome[A] (final val genes: Seq[Gene[A]]) extends JChromosome[A] with Ordered[Chromosome[A]]{
   var fitness: Option[Double] = None
-  val props = new HashMap[String, long]
+  val props = new HashMap[String, Long]
   
   def length = genes.length
   def size = genes.size
-  def elements = genes.elements
+  def elements = genes.iterator
   def apply(n: Int) = genes(n)
   def indexOf(gene: Gene[A]) = genes.indexOf(gene)
   
-  override def equals(other: Any) : Boolean = {
-    return genes.sameElements(other.asInstanceOf[Chromosome[A]].genes)
+  override def equals(other: Any) : Boolean = other match {
+    case null => false
+    case otherC: Chromosome[A] => genes.sameElements(otherC.genes)
+    case _ => false
   }
   
   override def hashCode = {
@@ -105,11 +107,11 @@ class Chromosome[A] (final val genes: Seq[Gene[A]]) extends JChromosome[A] with 
     var idx = 0
 
     /*
-    genes.foreach {gene =>
-      if (gene.equals(other(idx))) score += 1
-      idx += 1
-    }
-    */
+     genes.foreach {gene =>
+     if (gene.equals(other(idx))) score += 1
+     idx += 1
+     }
+     */
     
     // the functional way of iterating over 'genes' (above) slows SpearsScape down 
     // by ~50%. So we do this the imperitive way (below)
@@ -133,9 +135,9 @@ class Chromosome[A] (final val genes: Seq[Gene[A]]) extends JChromosome[A] with 
   def fitnessVal = fitness.get
 
   def compare(that:Chromosome[A]) : Int = fitness.get match {
-  case fness if fness < that.fitness.get => -1
-  case fness if fness > that.fitness.get => 1
-  case _ => 0
+    case fness if fness < that.fitness.get => -1
+    case fness if fness > that.fitness.get => 1
+    case _ => 0
   }
  
 }

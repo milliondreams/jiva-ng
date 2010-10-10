@@ -20,14 +20,14 @@ import scala.util.Random
 import junit.framework.TestCase
 import org.jmock.Mockery
 import org.jmock.lib.legacy.ClassImposteriser
+import org.jmock.Expectations
 import org.jmock.Expectations._
-import net.kogics.jiva.util.mock.SExpectations
 
 import net.kogics.jiva.Predef._
 import net.kogics.jiva.population.{Population, Chromosome}
 import net.kogics.jiva.util.NoOpShuffler
 
-class TestInversionMutationOp extends TestCase with TestUtils with ProbabilityChecker[jint] {
+class TestInversionMutationOp extends TestCase with net.kogics.jiva.TestUtils with ProbabilityChecker[jint] {
  
   val context = new Mockery() {
     {
@@ -44,11 +44,11 @@ class TestInversionMutationOp extends TestCase with TestUtils with ProbabilityCh
            Chromosome("543216", 6), Chromosome("123456", 6), Chromosome("132456", 6))
     
     val rg = (context.mock(classOf[Random])).asInstanceOf[Random]
-    context.checking(new SExpectations() {
+    context.checking(new Expectations() {
       {
         atLeast(1).of(rg).nextDouble()
         will(onConsecutiveCalls(returnConsecutiveValues(List(0.1, 0.3, 0.15, 0.4, 0.11)): _*))
-	    atLeast(1).of(rg).nextInt(withArg(any(classOf[jint])))
+	    atLeast(1).of(rg).nextInt(`with`(any(classOf[jint])))
         will(onConsecutiveCalls(returnConsecutiveValues(List(1, 1, 0, 2, 1, 0)): _*))
       }
     })
@@ -67,11 +67,11 @@ class TestInversionMutationOp extends TestCase with TestUtils with ProbabilityCh
     val expectedPop = pop
     
     val rg = (context.mock(classOf[Random])).asInstanceOf[Random]
-    context.checking(new SExpectations() {
+    context.checking(new Expectations() {
       {
         atLeast(1).of(rg).nextDouble()
         will(onConsecutiveCalls(returnConsecutiveValues(List(0.1)): _*))
-	    atLeast(1).of(rg).nextInt(withArg(any(classOf[jint])))
+	    atLeast(1).of(rg).nextInt(`with`(any(classOf[jint])))
         will(onConsecutiveCalls(returnConsecutiveValues(List(2, 0)): _*))
       }
     })

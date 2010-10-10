@@ -14,6 +14,7 @@
  */
 
 package net.kogics.jiva.util.collection
+import net.kogics.jiva.util.ShufflerImpl
 
 trait JSeq[+A] extends Seq[A] {
   def remove(idx: Int): A
@@ -45,11 +46,13 @@ class JList[A](val underlying: java.util.ArrayList[A]) extends JSeq[A] {
   def length = underlying.size
   def apply(idx: Int) = underlying.get(idx)
   
-  def elements = new Iterator[A] {
+  override def elements = new Iterator[A] {
     val underlyingIter = underlying.iterator
     def next = underlyingIter.next
     def hasNext = underlyingIter.hasNext
   }
+
+  def iterator = elements
   
   def + (a: A): JList[A] = {
     underlying.add(a)
@@ -91,19 +94,19 @@ class JList[A](val underlying: java.util.ArrayList[A]) extends JSeq[A] {
     result
   }
   
-  override def map[B](f: A => B): JList[B] = {
+  def map[B](f: A => B): JList[B] = {
     val buf = new JList[B]
     val elems = elements
     while (elems.hasNext) buf += f(elems.next)
     buf
   }
   
-  override def foreach(f: A => Unit) {
+  override def foreach[U](f: A => U) {
     val elems = elements
     while (elems.hasNext) f(elems.next) 
   }  
   
-  override def ++ [B >: A](that: Iterable[B]): Seq[B] = {
+  def ++ [B >: A](that: Iterable[B]): Seq[B] = {
     val newlist = new JList[B]
     foreach {b => newlist += b}
     that.foreach {b => newlist += b}
@@ -121,11 +124,17 @@ class JList[A](val underlying: java.util.ArrayList[A]) extends JSeq[A] {
   
   override def toString = underlying.toString
   
-  override def equals(other: Any) = underlying.equals(other.asInstanceOf[JList[A]].underlying)
+  override def equals(other: Any) = other match {
+    case null => false
+    case otherList: JList[A] => underlying.equals(otherList.underlying)
+    case _ => false
+  }
 
   def remove(idx: Int) = underlying.remove(idx)
   
   def shuffle = shuffler.shuffle(underlying)
+
+  override def indexOf[B >: A](elem: B) = underlying.indexOf(elem)
 }
 
 

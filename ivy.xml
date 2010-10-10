@@ -9,10 +9,10 @@
 	</dependency>
 	<dependency org="cglib" name="cglib" rev="2.1_3"/>
 	<dependency org="org.objenesis" name="objenesis" rev="1.0"/>
-        <dependency org="org.scala-lang" name="scala-library" rev="2.7.3">
+        <dependency org="org.scala-lang" name="scala-library" rev="2.8.0">
 		<artifact name="scala-library" type="jar"/> 
 	</dependency>
-        <dependency org="org.scala-lang" name="scala-compiler" rev="2.7.3">
+        <dependency org="org.scala-lang" name="scala-compiler" rev="2.8.0">
 		<artifact name="scala-compiler" type="jar"/> 
 	</dependency>
     </dependencies>

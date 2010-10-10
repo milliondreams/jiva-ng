@@ -19,7 +19,7 @@ import net.kogics.jiva.gaprob._
 /**
  * Helps run Jiva from within an IDE. Assumes that all the 'GA Problem' classes
  * are on the classpath
-*/
+ */
 object JivaMainIde {
   def main(args : Array[String]) : Unit = {
     
@@ -27,12 +27,15 @@ object JivaMainIde {
       println("Usage: jiva problemFile")
       exit(1)
     }
+
+//    Console.readInt
     
-    // val pb = Class.forName("SchedulingProb2").newInstance
-    val pb = Class.forName("SpearsScape").newInstance
-    // val pb = Class.forName("SpearsScapeSga").newInstance
-    // val pb = Class.forName("Knapsack").newInstance
-    // val pb = Class.forName("NQueens").newInstance
+//    val pb = Class.forName("SchedulingProb2").newInstance
+//    val pb = Class.forName("SpearsScape").newInstance
+//     val pb = Class.forName("SpearsScapeSga").newInstance
+//    val pb = Class.forName("Knapsack").newInstance
+//    val pb = Class.forName("NQueens2").newInstance
+    val pb = Class.forName(args(0)).newInstance
     
     val problem = ProbLoader.getProblem(pb.asInstanceOf[AnyRef])
     
