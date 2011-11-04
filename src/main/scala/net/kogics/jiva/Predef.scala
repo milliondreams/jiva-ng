@@ -6,8 +6,8 @@ object Predef {
   type jbool = java.lang.Boolean
   val Randomizer = net.kogics.jiva.util.Randomizer
   
-  implicit def jbool2Boolean(b: jbool) : Boolean = b.booleanValue
-  implicit def jint2int(i: jint) : Int = i.intValue
+//  implicit def jbool2Boolean(b: jbool) : Boolean = b.booleanValue
+//  implicit def jint2int(i: jint) : Int = i.intValue
   
   implicit def seq2Array(s: Seq[Any]): Array[AnyRef] = {
     // Borrowed from Console

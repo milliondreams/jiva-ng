@@ -1,5 +1,5 @@
 <project xmlns:ivy="antlib:org.apache.ivy.ant" name="jiva" default="jar" basedir=".">
-	<property name="scala.version" value="2.8.0"/>
+	<property name="scala.version" value="2.9.1"/>
 	<property name="scala.home" value="." />
 	<property name="scala-compiler.jar" value="${scala.home}/lib/scala-compiler-${scala.version}.jar" />
 	<property name="scala-library.jar" value="${scala.home}/lib/scala-library-${scala.version}.jar" />
